@@ -32,7 +32,7 @@ module.exports = (robot) ->
       msg.send "#{result}"
 
   robot.respond /(delete|remove|unset) (.+)$/i, (msg) ->
-    key = msg.match[2].trim()
+    key = msg.match[2].trim().toLowerCase()
     delete robot.brain[key]
     msg.send "#{key} is no more"
 
