@@ -7,8 +7,8 @@
 #   hubot delete <key> - removes this from storage
 #
 # Examples:
-#   hubot holman is an ego surfer
-#   hubot holman is not an ego surfer
+#   hubot set how I feel http://i.imgur.com/g7XI2AJ.gif
+#   hubot get how I feel
 
 module.exports = (robot) ->
 
@@ -16,18 +16,15 @@ module.exports = (robot) ->
   #   robot.logger.warning 'The HUBOT_AUTH_ADMIN environment variable is set not going to load roles.coffee, you should delete it'
   #   return
 
-  # getAmbiguousUserText = (users) ->
-  #   "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
-
   robot.respond /(store|set|save) (.+) (.+)$/i, (msg) ->
-    key = msg.match[2].trim()
+    key = msg.match[2].trim().toLowerCase()
     value = msg.match[3].trim()
 
     robot.brain[key] = value
     msg.send "Stored #{key}"
 
   robot.respond /(fetch|get|load) (.+)$/i, (msg) ->
-    key = msg.match[2].trim()
+    key = msg.match[2].trim().toLowerCase()
     result = robot.brain[key]
     if typeof result  is "undefined"
       msg.send "I know nothing about #{key}"
